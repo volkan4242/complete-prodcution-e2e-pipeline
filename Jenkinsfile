@@ -1,4 +1,4 @@
- pipeline {
+  pipeline {
     agent {
         label "jenkins-agent"
     }
@@ -17,9 +17,17 @@
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/dmancloud/complete-prodcution-e2e-pipeline'
             }
         }
+        stage("Build Application") {
+            steps {
+                sh "mvn clean package"
+            }
+        }
+        stage("Test Application") {
+            steps {
+                sh "mvn test"
+            }
+        }
     }
     // Add additional stages or post-build actions here if needed
 }
-// Ensure there's a closing brace for the pipeline block
-         
-        
+      
