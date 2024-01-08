@@ -1,4 +1,4 @@
-  pipeline {
+pipeline {
     agent {
         label "jenkins-agent"
     }
@@ -27,7 +27,22 @@
                 sh "mvn test"
             }
         }
+        stage("Sonarqube Analysis") {
+            steps {
+                script {
+                    withSonarQubeEnv('jenkins-sonarqube-token') {
+                        sh "mvn sonar:sonar"
+                    }
+                }
+            }
+        }
+        stage("Quality Gate") {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+                }
+            }
+        }
     }
     // Add additional stages or post-build actions here if needed
 }
-      
