@@ -14,7 +14,9 @@ pipeline {
         }
         stage("Checkout from SCM") {
             steps {
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/dmancloud/complete-prodcution-e2e-pipeline'
+                git branch: 'main', 
+                    credentialsId: 'github', 
+                    url: 'https://github.com/dmancloud/complete-prodcution-e2e-pipeline'
             }
         }
         stage("Build Application") {
@@ -36,14 +38,6 @@ pipeline {
                 }
             }
         }
-        stage("Quality Gate") {
-            steps {
-                script {
-                    // Note: The credentialsId parameter is typically not needed for waitForQualityGate
-                    waitForQualityGate abortPipeline: false
-                }
-            }
-        }
+        // Add additional stages or post-build actions here if needed
     }
-    // Add additional stages or post-build actions here if needed
 }
