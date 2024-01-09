@@ -39,7 +39,8 @@ pipeline {
         stage("Quality Gate") {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-server'
+                    // Note: The credentialsId parameter is typically not needed for waitForQualityGate
+                    waitForQualityGate abortPipeline: false
                 }
             }
         }
