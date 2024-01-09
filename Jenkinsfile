@@ -25,7 +25,7 @@ pipeline {
             steps {
                 git branch: 'main', 
                     credentialsId: 'github', 
-                    url: 'https://github.com/dmancloud/complete-prodcution-e2e-pipeline'
+                    url: https://github.com/volkan4242/complete-prodcution-e2e-pipeline.git'
             }
         }
         stage("Build Application") {
