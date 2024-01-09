@@ -7,15 +7,12 @@ pipeline {
         maven 'Maven3'
     }
     environment {
-        environment {
         APP_NAME = "complete-prodcution-e2e-pipeline"
         RELEASE = "1.0.0"
         DOCKER_USER = "volkan42"
         DOCKER_PASS = 'dockerhub'
-        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-        
-
     }
     stages {
         stage("Cleanup Workspace") {
@@ -26,7 +23,7 @@ pipeline {
         stage("Checkout from SCM") {
             steps {
                 git branch: 'main', 
-                    credentialsId: 'github',  // Ensure 'github' is the ID of your GitHub credentials in Jenkins
+                    credentialsId: 'github', 
                     url: 'https://github.com/volkan4242/complete-prodcution-e2e-pipeline.git'
             }
         }
@@ -43,7 +40,7 @@ pipeline {
         stage("Sonarqube Analysis") {
             steps {
                 script {
-                    withSonarQubeEnv('jenkins-server') {  // Ensure 'jenkins-server' matches your SonarQube configuration in Jenkins
+                    withSonarQubeEnv('jenkins-server') {
                         sh "mvn sonar:sonar"
                     }
                 }
